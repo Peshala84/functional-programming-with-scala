@@ -5,6 +5,7 @@ object que_03{
         BigDecimal(avg).setScale(2 , BigDecimal.RoundingMode.HALF_UP).toDouble
     }
     def main(args: Array[String]):Unit={
-        println(Average(125 , 25))
+        var mean = Average(10 , 25)
+        println(f"Average of 10 and 25 is $mean%.2f")
     }
 }
