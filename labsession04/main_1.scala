@@ -44,13 +44,13 @@ object InventoryManagement {
   }
 
   def main(args: Array[String]): Unit = {
-  restockItem("Shirt", 10)
-  restockItem("Hat", 5)
+  restockItem("Book", 10)
+  restockItem("Pen", 5)
 
   displayInventory() // Display updated inventory
 
-  sellItem("Shirt", 3)
-  sellItem("Pants", 2) // Item not found
+  sellItem("Book", 3)
+  sellItem("Pen", 2) // Item not found
 
   displayInventory() // Display inventory after selling
 }
