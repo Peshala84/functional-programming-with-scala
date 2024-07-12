@@ -1,7 +1,7 @@
-object NumberAnalyzer {
+object main_2 {
 
   def main(args: Array[String]): Unit = {
-    var continue = true
+    var continue:Boolean = true
     while (continue) {
       println("Enter an integer:")
       val inputString = scala.io.StdIn.readLine()
