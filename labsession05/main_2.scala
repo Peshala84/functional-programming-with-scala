@@ -32,7 +32,7 @@ object LibraryManagement {
     library.exists(_.isbn == isbn)
   }
 
-  def displayLibraryCollection(): Unit = {
+  def displayLibraryCollection(library:Set[Book]): Unit = {
     println("\nLibrary Collection:")
     library.foreach { book =>
       println(s"Title: ${book.title}, Author: ${book.author}, ISBN: ${book.isbn}")
@@ -91,7 +91,7 @@ object LibraryManagement {
           val isbn = readLine("Enter book ISBN to check: ")
           println(s"\nIs book with ISBN '$isbn' in the library? ${isBookInLibrary(isbn)}")
         case "4" =>
-          displayLibraryCollection()
+          displayLibraryCollection(library)
         case "5" =>
           val title = readLine("Enter book title to search: ")
           searchBookByTitle(title)
