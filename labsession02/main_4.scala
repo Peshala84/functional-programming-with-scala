@@ -19,7 +19,7 @@ object question04{
         attendees(ticket_price) * ticket_price
     }
 
-    def cost(ticket_price:Double)={
+    def cost(ticket_price:Double)={                   
         500 + 3*attendees(ticket_price)
     }
 
