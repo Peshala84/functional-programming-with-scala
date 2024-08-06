@@ -10,4 +10,4 @@ object calculateSqu {
         val num1 : List[Int] = num.map(x => x*x);
         num1; 
     }
-}qu
+}
