@@ -1,6 +1,6 @@
 import scala.io.StdIn
 
-object Multiples {
+object  {
 
     def main(arg : Array[String]): Unit ={
 
