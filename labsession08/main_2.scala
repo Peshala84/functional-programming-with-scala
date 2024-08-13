@@ -1,6 +1,6 @@
 import scala.io.StdIn
 
-object  {
+object  Multiples{
 
     def main(arg : Array[String]): Unit ={
 
@@ -12,6 +12,7 @@ object  {
 
         if (isMultipleOf3(Number) && isMultipleOf5(Number)) {
             println("Multiple of Both Three and Five");
+
         }
         else if (isMultipleOf3(Number)) {
             println("Multiple of Three");
