@@ -1,71 +1,50 @@
-class Account(var balance: Double) {
-  require(balance >= 0, "Initial balance must be non-negative")
-
-  def deposit(amount: Double): Unit = {
-    require(amount > 0, "Deposit amount must be positive")
-    balance += amount
-    println(s"Deposited $$amount. New balance: $$balance")
-  }
-
-  def withdraw(amount: Double): Unit = {
-    require(amount > 0, "Withdraw amount must be positive")
-    if (amount <= balance) {
-      balance -= amount
-      println(s"Withdrew $$amount. New balance: $$balance")
-    } else {
-      println(s"Insufficient funds. Current balance: $$balance")
-    }
-  }
-
-  def transfer(amount: Double, toAccount: Account): Unit = {
-    require(amount > 0, "Transfer amount must be positive")
-    if (amount <= balance) {
-      this.withdraw(amount)
-      toAccount.deposit(amount)
-      println(s"Transferred $$amount to account with new balance: $${toAccount.balance}")
-    } else {
-      println(s"Insufficient funds to transfer. Current balance: $$balance")
-    }
-  }
-
-  override def toString: String = s"Account(balance: $$balance)"
+// Define a class for Account
+class Account(val id: String, var balance: Double) {
+  override def toString: String = s"Account($id, Balance: $$balance)"
 }
 
-class Bank(val accounts: List[Account]) {
-  def accountsWithNegativeBalances: List[Account] = {
-    accounts.filter(_.balance < 0)
+// Define the Bank as a List of Accounts
+object Bank {
+  type Bank = List[Account]
+
+  // 4.1 List of Accounts with negative balances
+  def negativeBalances(bank: Bank): List[Account] = {
+    bank.filter(_.balance < 0)
   }
 
-  def totalBalance: Double = {
-    accounts.map(_.balance).sum
+  // 4.2 Calculate the sum of all account balances
+  def totalBalance(bank: Bank): Double = {
+    bank.map(_.balance).sum
   }
 
-  def applyInterest(): Unit = {
-    accounts.foreach { account =>
+  // 4.3 Calculate the final balances of all accounts after applying the interest function
+  def applyInterest(bank: Bank): Bank = {
+    bank.map { account =>
       if (account.balance > 0) {
-        account.deposit(account.balance * 0.05)
-      } else if (account.balance < 0) {
-        account.withdraw(account.balance * -0.1) // Overdraft interest is deducted
+        account.balance += account.balance * 0.05
+      } else {
+        account.balance += account.balance * 0.1
       }
+      account
     }
   }
-
-  override def toString: String = accounts.mkString(", ")
 }
 
-// Usage example
-object Main extends App {
-  val account1 = new Account(1000.0)
-  val account2 = new Account(-50.0)
-  val account3 = new Account(500.0)
-  val account4 = new Account(-200.0)
+// Example usage
+object BankApp extends App {
+  val accounts = List(
+    new Account("A1", 500.0),
+    new Account("A2", -150.0),
+    new Account("A3", 0.0),
+    new Account("A4", -75.0),
+    new Account("A5", 1000.0)
+  )
 
-  val bank = new Bank(List(account1, account2, account3, account4))
+  println("Accounts with negative balances:")
+  Bank.negativeBalances(accounts).foreach(println)
 
-  println(s"Accounts with negative balances: ${bank.accountsWithNegativeBalances}")
-  println(s"Total balance of all accounts: $$${bank.totalBalance}")
+  println(s"Total balance in the bank: ${Bank.totalBalance(accounts)}")
 
-  bank.applyInterest()
-
-  println(s"Final balances after applying interest: $bank")
+  println("Final balances after applying interest:")
+  Bank.applyInterest(accounts).foreach(println)
 }
